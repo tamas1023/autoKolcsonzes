@@ -13,10 +13,12 @@ function CarRent(props) {
   )[0];
 
   const navitage = useNavigate();
+  if (rents !== null) {
+    const updatedCars = cars.filter((car) =>
+      rents.some((rent) => rent.id === car.id && authC.user === rent.username)
+    );
+  }
 
-  const updatedCars = cars.filter((car) =>
-    rents.some((rent) => rent.id === car.id && authC.user === rent.username)
-  );
   const toZero = () => {
     if (onePayment.money < 0) {
       onePayment.money = 0;
