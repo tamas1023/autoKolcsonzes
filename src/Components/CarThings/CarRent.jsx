@@ -4,7 +4,7 @@ import { AuthCont } from "../Services/AuthContext";
 function CarRent(props) {
   const authC = useContext(AuthCont);
   const cars = JSON.parse(localStorage.getItem("cars"));
-  const rents = JSON.parse(localStorage.getItem("rents"));
+  const rents = JSON.parse(localStorage.getItem("rents") || []);
   //console.log(rents);
   const payments = JSON.parse(localStorage.getItem("payments"));
   //console.log(payments);
@@ -13,19 +13,17 @@ function CarRent(props) {
   )[0];
 
   const navitage = useNavigate();
-  if (rents !== null) {
-    const updatedCars = cars.filter((car) =>
-      rents.some((rent) => rent.id === car.id && authC.user === rent.username)
-    );
-  }
 
+  const updatedCars = cars.filter((car) =>
+    rents.some((rent) => rent.id === car.id && authC.user === rent.username)
+  );
   const toZero = () => {
     if (onePayment.money < 0) {
       onePayment.money = 0;
 
       //miven a onepayment a filter által??? a payments re mutat ezért a payment értéke is válltozik... ?
       localStorage.setItem("payments", JSON.stringify(payments));
-      navitage("/Bérlés");
+      navitage("/autoKolcsonzes/Bérlés");
     }
   };
   const addMoney = () => {
@@ -41,7 +39,7 @@ function CarRent(props) {
       });
       //console.log(payments);
       localStorage.setItem("payments", JSON.stringify(payments));
-      navitage("/Bérlés");
+      navitage("/autoKolcsonzes/Bérlés");
     }
   };
   const stopRent = (id) => {
@@ -76,7 +74,7 @@ function CarRent(props) {
     localStorage.setItem("rents", JSON.stringify(updatedRents));
     //miven a onepayment a filter által??? a payments re mutat ezért a payment értéke is válltozik... ?
     localStorage.setItem("payments", JSON.stringify(payments));
-    navitage("/Bérlés");
+    navitage("/autoKolcsonzes/Bérlés");
   };
   //console.log(updatedCars);
   return (

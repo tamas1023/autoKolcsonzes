@@ -27,7 +27,7 @@ const MainContent = () => {
 
         {/*Ezekre menne a login protection*/}
         <Route
-          path="/Főoldal/*"
+          path="/autoKolcsonzes/Főoldal/*"
           element={
             <>
               <LoggedPageHolder title={"Főoldal"}>
@@ -37,7 +37,7 @@ const MainContent = () => {
           }
         />
         <Route
-          path="/Bérlés/*"
+          path="/autoKolcsonzes/Bérlés/*"
           element={
             <AuthProtection>
               <LoggedPageHolder title={"Bérlés"}>
@@ -48,7 +48,7 @@ const MainContent = () => {
         />
 
         <Route
-          path="/Auto/:autoId"
+          path="/autoKolcsonzes/Auto/:autoId"
           element={
             <>
               <LoggedPageHolder title={"Egy Autó"}>
@@ -58,7 +58,7 @@ const MainContent = () => {
           }
         />
         <Route
-          path="/Hozzáadás"
+          path="/autoKolcsonzes/Hozzáadás"
           element={
             <AdminProtection>
               <LoggedPageHolder title={"Autó Hozzáadás"}>
@@ -68,7 +68,7 @@ const MainContent = () => {
           }
         />
         <Route
-          path="/Bejelentkezés"
+          path="/autoKolcsonzes/Bejelentkezés"
           element={
             <OutProtection>
               <LoggedPageHolder title={"Bejelentkezés"}>
@@ -81,7 +81,7 @@ const MainContent = () => {
         {/*Erre menne az admin protection*/}
         <Route path="/admin/*" />
 
-        <Route path="/*" element={<Nope />} />
+        <Route path="/autoKolcsonzes/*" element={<Nope />} />
       </Routes>
     </AuthContext>
   );

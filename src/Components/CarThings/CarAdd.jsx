@@ -55,7 +55,7 @@ function CarAdd(props) {
     console.log("----------------------------------------");
     console.log(JSON.parse(localStorage.getItem("cars")));
     */
-    navitage("/Főoldal");
+    navitage("/autoKolcsonzes/Főoldal");
   };
   const handleChange = (e) => {
     SetCar((prev) => ({ ...prev, [e.target.name]: e.target.value }));

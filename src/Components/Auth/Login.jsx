@@ -37,7 +37,7 @@ const Login = (props) => {
       }
     }
 
-    navitage("/Főoldal");
+    navitage("/autoKolcsonzes/Főoldal");
     //username.current.value;
     /*
     if (username.current.value === "admin") {

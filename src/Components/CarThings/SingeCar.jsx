@@ -20,7 +20,7 @@ function SingleCar(props) {
     const storedCars = JSON.parse(localStorage.getItem("cars") || "[]");
     const updatedCars = storedCars.filter((car) => car.id !== id);
     localStorage.setItem("cars", JSON.stringify(updatedCars));
-    navitage("/Főoldal");
+    navitage("/autoKolcsonzes/Főoldal");
   };
   const rent = () => {
     //a onecar-t módosítjuk, utánna update eljük a storedcarst
@@ -48,7 +48,7 @@ function SingleCar(props) {
     localStorage.setItem("rents", JSON.stringify(updateStoredRents));
     //console.log(updateStoredRents);
     //storedRents ? "" : localStorage.setItem("cars", JSON.stringify(rent));
-    navitage("/Főoldal");
+    navitage("/autoKolcsonzes/Főoldal");
   };
   const oneCar = getItemById(id);
   const [car, SetCar] = useState({
@@ -94,11 +94,11 @@ function SingleCar(props) {
     SetCar((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const changeCar = () => {
-    if (!authC.isAdmin()) navitage("/Főoldal");
+    if (!authC.isAdmin()) navitage("/autoKolcsonzes/Főoldal");
     const storedCars = JSON.parse(localStorage.getItem("cars") || "[]");
     storedCars[car.id] = car;
     localStorage.setItem("cars", JSON.stringify(storedCars));
-    navitage("/Főoldal");
+    navitage("/autoKolcsonzes/Főoldal");
   };
 
   return (

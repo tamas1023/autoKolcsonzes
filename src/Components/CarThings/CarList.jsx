@@ -20,7 +20,11 @@ function CarList(props) {
           key={car.id}
           className="border-solid border-2 border-sky-700 m-1 flex flex-col"
         >
-          <Link to={`/Auto/${car.id}`} key={car.id} className="contents">
+          <Link
+            to={`/autoKolcsonzes/Auto/${car.id}`}
+            key={car.id}
+            className="contents"
+          >
             <div className="flex-grow">
               <div className="text-sm font-medium leading-6 text-center p-1">
                 {car.név}

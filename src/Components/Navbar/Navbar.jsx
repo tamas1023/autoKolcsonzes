@@ -22,7 +22,7 @@ const Navbar = (props) => {
   //const [beloginolt, setBeloginolt] = useState(false);
   //<h1 className="text-3xl font-bold underline">Hello world!</h1>
   const [navigation, setNavigation] = useState([
-    { name: "Főoldal", href: "/Főoldal", current: false, id: 0 },
+    { name: "Főoldal", href: "/autoKolcsonzes/Főoldal", current: false, id: 0 },
   ]);
   useEffect(() => {
     // Az admin jogok lekérdezése és beállítása (például AuthContext-ből)
@@ -36,12 +36,17 @@ const Navbar = (props) => {
     */
     // Dinamikus navigation létrehozása az admin jogok alapján
     const dynamicNavigation = [
-      { name: "Főoldal", href: "/Főoldal", current: false, id: 0 },
+      {
+        name: "Főoldal",
+        href: "/autoKolcsonzes/Főoldal",
+        current: false,
+        id: 0,
+      },
     ];
     if (authC.isLoggedIn) {
       dynamicNavigation.push({
         name: "Bérlés",
-        href: "/Bérlés",
+        href: "/autoKolcsonzes/Bérlés",
         current: false,
         id: 1,
       });
@@ -49,7 +54,7 @@ const Navbar = (props) => {
     if (authC.isAdmin()) {
       dynamicNavigation.push({
         name: "Autó Hozzáadás",
-        href: "/Hozzáadás",
+        href: "/autoKolcsonzes/Hozzáadás",
         current: false,
         id: 2,
       });
@@ -79,7 +84,7 @@ const Navbar = (props) => {
   const Logout = () => {
     authC.logout();
 
-    navitage("/Főoldal");
+    navitage("/autoKolcsonzes/Főoldal");
   };
   return (
     <>
@@ -195,7 +200,7 @@ const Navbar = (props) => {
                       </Menu>
                     ) : (
                       <Link
-                        to={"/Bejelentkezés"}
+                        to={"/autoKolcsonzes/Bejelentkezés"}
                         /*
                         className={classNames(
                           navigation[3].current
