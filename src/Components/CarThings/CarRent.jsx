@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthCont } from "../Services/AuthContext";
 function CarRent(props) {
   const authC = useContext(AuthCont);
+  const navitage = useNavigate();
   const cars = JSON.parse(localStorage.getItem("cars"));
-  const rents = JSON.parse(localStorage.getItem("rents") || []);
+  //localStorage.removeItem("rents");
+  const rents = JSON.parse(localStorage.getItem("rents"));
   //console.log(rents);
   const payments = JSON.parse(localStorage.getItem("payments"));
   //console.log(payments);
@@ -12,11 +14,24 @@ function CarRent(props) {
     (payment) => payment.username === authC.user
   )[0];
 
-  const navitage = useNavigate();
-
-  const updatedCars = cars.filter((car) =>
-    rents.some((rent) => rent.id === car.id && authC.user === rent.username)
+  const [rentedCars, setRentedCars] = useState(
+    rents === null
+      ? []
+      : cars.filter((car) =>
+          rents.some(
+            (rent) => rent.id === car.id && authC.user === rent.username
+          )
+        )
   );
+  /*
+  if (rents === null) {
+  } else {
+    const updateCars = cars.filter((car) =>
+      rents.some((rent) => rent.id === car.id && authC.user === rent.username)
+    );
+    setUpdatedCars(updateCars);
+  }
+  */
   const toZero = () => {
     if (onePayment.money < 0) {
       onePayment.money = 0;
@@ -70,13 +85,19 @@ function CarRent(props) {
     cars[id].kiBereltE = false;
     //console.log(cars[id]);
     //console.log(cars);
+    const updateRentCars = cars.filter((car) =>
+      updatedRents.some(
+        (rent) => rent.id === car.id && authC.user === rent.username
+      )
+    );
+    setRentedCars(updateRentCars);
     localStorage.setItem("cars", JSON.stringify(cars));
     localStorage.setItem("rents", JSON.stringify(updatedRents));
     //miven a onepayment a filter által??? a payments re mutat ezért a payment értéke is válltozik... ?
     localStorage.setItem("payments", JSON.stringify(payments));
     navitage("/autoKolcsonzes/Bérlés");
   };
-  //console.log(updatedCars);
+  //console.log(rentedCars);
   return (
     <div>
       <h1 className="ml-2">{onePayment.money} pénzed van</h1>
@@ -107,7 +128,7 @@ function CarRent(props) {
         className="grid "
         style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}
       >
-        {updatedCars.map((car) => (
+        {rentedCars.map((car) => (
           <div
             key={car.id}
             className="border-solid border-2 border-sky-700 m-1 flex flex-col"
