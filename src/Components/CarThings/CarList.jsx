@@ -1,42 +1,38 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
+
 function CarList(props) {
   const [cars, setCars] = useState(
     JSON.parse(localStorage.getItem("cars")) || []
   );
-  const [rentableCars, SetRentableCars] = useState(
-    cars.filter((cars) => cars.kiBereltE === false)
-  );
-  //console.log(rentableCars);
-  //grid-template-columns: repeat(auto-fit,minmax(300px, 1fr) );
+
+  // Szűrjük a bérelhető autókat, vagyis azokat, amelyek kiBereltE értéke false
+  const rentableCars = cars.filter((car) => !car.kiBereltE);
+
   return (
-    <div
-      className="grid "
-      style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}
-    >
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      {/* Az autókhoz tartozó kártyák */}
       {rentableCars.map((car) => (
-        <div
+        <Link
+          to={`/autoKolcsonzes/Auto/${car.id}`}
           key={car.id}
-          className="border-solid border-2 border-sky-700 m-1 flex flex-col"
+          className="border-solid border-2 border-sky-700 flex flex-col rounded-lg overflow-hidden shadow-md transition-transform transform hover:scale-105 p-4"
+          style={{ margin: "8px" }}
         >
-          <Link
-            to={`/autoKolcsonzes/Auto/${car.id}`}
-            key={car.id}
-            className="contents"
-          >
-            <div className="flex-grow">
-              <div className="text-sm font-medium leading-6 text-center p-1">
-                {car.név}
-              </div>
-              <div className="text-center p-1">{car.ára}/óra</div>
-              <div className="text-center p-1">{car.leírás}</div>
-            </div>
-            <div className="flex-shrink-0">
-              <img src={car.kép} alt={car.név} className="w-72 m-auto p-1" />
-            </div>
-          </Link>
-        </div>
+          <div className="flex-shrink-0">
+            <img
+              src={car.kép}
+              alt={car.név}
+              className="w-full h-48 object-cover"
+            />
+          </div>
+          <div className="flex-grow">
+            <h2 className="text-xl font-semibold mb-2">{car.név}</h2>
+            <p className="text-slate-200">{car.leírás}</p>
+            <p className="text-slate-300 mt-2">Ár: {car.ára}/óra</p>
+          </div>
+        </Link>
       ))}
     </div>
   );

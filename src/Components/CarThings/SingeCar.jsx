@@ -23,8 +23,6 @@ function SingleCar(props) {
     navitage("/autoKolcsonzes/Főoldal");
   };
   const rent = () => {
-    //a onecar-t módosítjuk, utánna update eljük a storedcarst
-    //const updatedOneCar
     const currentDate = new Date();
     oneCar.kiBereltE = true;
     const storedCars = JSON.parse(localStorage.getItem("cars") || "[]");
@@ -38,16 +36,11 @@ function SingleCar(props) {
         date: currentDate,
       },
     ];
-    //console.log(rent);
-    /*
-    const updatedCars = [...cars, { ...car, id: generateUniqueId() }];
-    localStorage.setItem("cars", JSON.stringify(updatedCars));
-    */
+
     const storedRents = JSON.parse(localStorage.getItem("rents"));
     const updateStoredRents = storedRents ? [...storedRents, ...rent] : rent;
     localStorage.setItem("rents", JSON.stringify(updateStoredRents));
-    //console.log(updateStoredRents);
-    //storedRents ? "" : localStorage.setItem("cars", JSON.stringify(rent));
+
     navitage("/autoKolcsonzes/Főoldal");
   };
   const oneCar = getItemById(id);
@@ -111,7 +104,18 @@ function SingleCar(props) {
                 <label className="block text-sm font-medium leading-6 ">
                   {input.név}
                 </label>
-                <div className="mt-2">
+                {input.name === "leírás" ? (
+                  <textarea
+                    type={input.type}
+                    name={input.name}
+                    id="first-name"
+                    className="block w-full disabled:opacity-100 disabled:text-white rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 text-black focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder={input.placeholder}
+                    onChange={handleChange}
+                    defaultValue={input.defaultValue}
+                    {...(authC.isAdmin() ? {} : { disabled: true })}
+                  ></textarea>
+                ) : (
                   <input
                     type={input.type}
                     name={input.name}
@@ -122,7 +126,7 @@ function SingleCar(props) {
                     defaultValue={input.defaultValue}
                     {...(authC.isAdmin() ? {} : { disabled: true })}
                   />
-                </div>
+                )}
               </div>
             ))}
             <img src={oneCar.kép} alt={oneCar.név} className="w-96 m-auto" />
@@ -130,7 +134,7 @@ function SingleCar(props) {
             <div>
               {authC.isLoggedIn ? (
                 <button
-                  className="block w-full mb-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 "
+                  className="block w-full mb-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 text-white"
                   onClick={() => {
                     if (window.confirm("Biztos ki akarod bérelni?")) {
                       setPending(true);
@@ -155,7 +159,7 @@ function SingleCar(props) {
               {authC.isAdmin() ? (
                 <div>
                   <button
-                    className="block w-full mb-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 "
+                    className="block w-full mb-2 bg-green-500 hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring focus:ring-green-300 rounded-md p-2 text-white"
                     onClick={() => {
                       if (
                         window.confirm(
@@ -192,7 +196,7 @@ function SingleCar(props) {
                         })();
                       }
                     }}
-                    className="block w-full bg-red-500 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 rounded-md p-2 "
+                    className="block w-full bg-red-500 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 rounded-md p-2 text-white"
                   >
                     Autó törlése
                   </button>

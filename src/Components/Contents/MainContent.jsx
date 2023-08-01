@@ -15,9 +15,6 @@ import OutProtection from "../Protection/OutProtection";
 import AdminProtection from "../Protection/AdminProtection";
 
 const MainContent = () => {
-  const [beloginolt, setBeloginolt] = useState(false);
-  const [admin, setAdmin] = useState(false);
-  //console.log(admin);
   return (
     <AuthContext>
       <Routes>
@@ -77,10 +74,6 @@ const MainContent = () => {
             </OutProtection>
           }
         />
-        <Route path="study/*" />
-        {/*Erre menne az admin protection*/}
-        <Route path="/admin/*" />
-
         <Route path="/autoKolcsonzes/*" element={<Nope />} />
       </Routes>
     </AuthContext>

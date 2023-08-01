@@ -7,14 +7,8 @@ const Login = (props) => {
   const username = useRef();
   const pass = useRef();
   const authC = useContext(AuthCont);
-  //console.log(props.beloginoltProp);
-  //console.log(props.setBeloginoltProp);
-  //console.log("Valami");
   const CheckUser = () => {
-    //console.log(username.current.value);
     authC.login(username.current.value);
-    //localStorage.removeItem("payments");
-
     const payments = JSON.parse(localStorage.getItem("payments"));
     const payment = [
       {
@@ -23,7 +17,6 @@ const Login = (props) => {
       },
     ];
     if (!payments) {
-      //console.log("ide belép");
       localStorage.setItem("payments", JSON.stringify(payment));
     } else {
       const existingPayment = payments.find(
@@ -32,31 +25,14 @@ const Login = (props) => {
 
       if (!existingPayment) {
         const updatedPayments = [...payments, ...payment];
-        //console.log(updatedPayments);
         localStorage.setItem("payments", JSON.stringify(updatedPayments));
       }
     }
 
     navitage("/autoKolcsonzes/Főoldal");
-    //username.current.value;
-    /*
-    if (username.current.value === "admin") {
-      props.setBeloginoltProp(true);
-      props.setAdminProp(true);
-      navitage("/Főoldal");
-    } else {
-      props.setBeloginoltProp(true);
-      navitage("/Főoldal");
-    }*/
-    //const updatedCars = [...cars, { ...car, id: generateUniqueId() }];
-    //localStorage.setItem("cars", JSON.stringify(updatedCars));
-    //navitage("/Főoldal");
   };
   return (
     <div>
-      {/*Autó hozzáadás*/}
-      {/*for cilkussal megoldható
-      form className="w-5/6 m-auto"*/}
       <form className="w-5/6 m-auto">
         <div className="border-b border-gray-900/10 pb-12">
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 ">

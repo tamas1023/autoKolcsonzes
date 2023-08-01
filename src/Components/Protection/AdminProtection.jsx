@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 const AdminProtection = (props) => {
   const authC = useContext(AuthCont);
-  //console.log(authC);
+
   if (!authC.isAdmin()) return <Navigate to={"/autoKolcsonzes/Főoldal"} />;
 
   return <>{props.children}</>;

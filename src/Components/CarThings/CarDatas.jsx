@@ -4,7 +4,7 @@ import CarList from "./CarList";
 const cars = [
   {
     id: 0,
-    név: "Autó 1",
+    név: "VW Bogár",
     ára: 1000,
     leírás: "Ez egy csodálatos autó.",
     kép: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Volkswagen_Beetle_.jpg",
@@ -12,7 +12,7 @@ const cars = [
   },
   {
     id: 1,
-    név: "Autó 2",
+    név: "VW Bogár",
     ára: 2500,
     leírás: "Ez egy csodálatos autó, és még nagyon gyors is!",
     kép: "https://upload.wikimedia.org/wikipedia/commons/4/47/VW_Käfer_blue_1956_vr_TCE.jpg",
@@ -20,7 +20,7 @@ const cars = [
   },
   {
     id: 2,
-    név: "Autó 1",
+    név: "VW Bogár",
     ára: 1000,
     leírás: "Ez egy csodálatos autó.",
     kép: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Volkswagen_Beetle_.jpg",
@@ -28,7 +28,7 @@ const cars = [
   },
   {
     id: 3,
-    név: "Autó 2",
+    név: "VW Bogár",
     ára: 2500,
     leírás: "Ez egy csodálatos autó, és még nagyon gyors is!",
     kép: "https://upload.wikimedia.org/wikipedia/commons/4/47/VW_Käfer_blue_1956_vr_TCE.jpg",

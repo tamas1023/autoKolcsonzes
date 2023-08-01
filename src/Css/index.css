@@ -57,6 +57,11 @@ Töréspontok
   }
 }
 
+@media (max-width: 340px) {
+  .w-80 {
+    max-width: 90%;
+  }
+}
 @media (max-width: 639px) {
   /* Kisebb képernyők */
   /* CSS szabályok itt */

@@ -7,9 +7,7 @@ function CarRent(props) {
   const cars = JSON.parse(localStorage.getItem("cars"));
   //localStorage.removeItem("rents");
   const rents = JSON.parse(localStorage.getItem("rents"));
-  //console.log(rents);
   const payments = JSON.parse(localStorage.getItem("payments"));
-  //console.log(payments);
   const onePayment = payments.filter(
     (payment) => payment.username === authC.user
   )[0];
@@ -23,15 +21,7 @@ function CarRent(props) {
           )
         )
   );
-  /*
-  if (rents === null) {
-  } else {
-    const updateCars = cars.filter((car) =>
-      rents.some((rent) => rent.id === car.id && authC.user === rent.username)
-    );
-    setUpdatedCars(updateCars);
-  }
-  */
+
   const toZero = () => {
     if (onePayment.money < 0) {
       onePayment.money = 0;
@@ -45,46 +35,27 @@ function CarRent(props) {
     const inputAmount = prompt("Add meg a mennyiséget: ");
     if (inputAmount !== null && !isNaN(inputAmount)) {
       const amount = parseInt(inputAmount);
-      //console.log(amount);
       onePayment.money += amount;
       payments.map((payment) => {
         payment.username === authC.user
           ? { ...payment, money: payment.money + amount }
           : payment;
       });
-      //console.log(payments);
       localStorage.setItem("payments", JSON.stringify(payments));
       navitage("/autoKolcsonzes/Bérlés");
     }
   };
   const stopRent = (id) => {
-    //console.log(id);
-    //console.log(rents);
     const oneRent = rents.filter((rent) => rent.id === id)[0];
     const startDate = new Date(oneRent.date);
-    //console.log(startDate);
     const currentDate = new Date();
-    //console.log(currentDate);
     const timeDifferenceMillis = currentDate.getTime() - startDate.getTime();
-    //console.log(timeDifferenceMillis);
     const hoursPassed = Math.ceil(timeDifferenceMillis / (1000 * 60 * 60));
-    /*
-    const minutesPassed = Math.ceil(timeDifferenceMillis / (1000 * 60));
-    const secondsPassed = Math.ceil(timeDifferenceMillis / 1000);
-    console.log(secondsPassed);
-    console.log(minutesPassed);
-    */
-    //console.log(hoursPassed);
     const oneCar = cars.filter((car) => car.id === id)[0];
-    //console.log(onePayment.money);
-    //console.log(oneCar.ára);
     onePayment.money -= hoursPassed * oneCar.ára;
-    //console.log(onePayment.money);
 
     const updatedRents = rents.filter((rent) => rent.id !== id);
     cars[id].kiBereltE = false;
-    //console.log(cars[id]);
-    //console.log(cars);
     const updateRentCars = cars.filter((car) =>
       updatedRents.some(
         (rent) => rent.id === car.id && authC.user === rent.username
@@ -97,7 +68,6 @@ function CarRent(props) {
     localStorage.setItem("payments", JSON.stringify(payments));
     navitage("/autoKolcsonzes/Bérlés");
   };
-  //console.log(rentedCars);
   return (
     <div>
       <h1 className="ml-2">{onePayment.money} pénzed van</h1>
@@ -131,17 +101,21 @@ function CarRent(props) {
         {rentedCars.map((car) => (
           <div
             key={car.id}
-            className="border-solid border-2 border-sky-700 m-1 flex flex-col"
+            className={`border-solid border-2 border-sky-700 flex flex-col rounded-lg overflow-hidden shadow-md ${
+              rentedCars.length === 1 ? "p-4 w-80 m-auto" : "p-4 m-10"
+            }`}
           >
-            <div className="flex-grow">
-              <div className="text-sm font-medium leading-6 text-center p-1">
-                {car.név}
-              </div>
-              <div className="text-center p-1">{car.ára}/óra</div>
-              <div className="text-center p-1">{car.leírás}</div>
-            </div>
             <div className="flex-shrink-0">
-              <img src={car.kép} alt={car.név} className="w-72 m-auto p-1" />
+              <img
+                src={car.kép}
+                alt={car.név}
+                className="w-full h-48 object-cover"
+              />
+            </div>
+            <div className="flex-grow">
+              <h2 className="text-xl font-semibold mb-2">{car.név}</h2>
+              <p className="text-slate-200">{car.leírás}</p>
+              <p className="text-slate-300 mt-2">Ár: {car.ára}/óra</p>
             </div>
             <button
               className="block w-full mb-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 "

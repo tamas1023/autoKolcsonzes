@@ -7,7 +7,7 @@ import SingleCar from "../CarThings/SingeCar";
 import { AuthCont } from "../Services/AuthContext";
 const Home = () => {
   const authC = useContext(AuthCont);
-  //console.log(authC);
+
   return (
     <div className="_container content">
       <CarDatas></CarDatas>

@@ -12,15 +12,6 @@ function classNames(...classes) {
 const Navbar = (props) => {
   const navitage = useNavigate();
   const authC = useContext(AuthCont);
-  /*
-  console.log(authC.isLoggedIn);
-  console.log(authC.user);
-  console.log(authC.isAdmin());
-  console.log("--------------------");
-  */
-  //const authC = useContext(authCont);
-  //const [beloginolt, setBeloginolt] = useState(false);
-  //<h1 className="text-3xl font-bold underline">Hello world!</h1>
   const [navigation, setNavigation] = useState([
     { name: "Főoldal", href: "/autoKolcsonzes/Főoldal", current: false, id: 0 },
   ]);
@@ -30,10 +21,6 @@ const Navbar = (props) => {
   }, [authC]);
 
   function menuCheck() {
-    /*
-    console.log("menuCheck");
-    console.log(adminStatus);
-    */
     // Dinamikus navigation létrehozása az admin jogok alapján
     const dynamicNavigation = [
       {
@@ -138,7 +125,7 @@ const Navbar = (props) => {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src="./img/twitch-logo.png"
+                              src="./img/default-profile-picture.png"
                               alt=""
                             />
                           </Menu.Button>
@@ -155,44 +142,15 @@ const Navbar = (props) => {
                           <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <Menu.Item>
                               {({ active }) => (
-                                <a
-                                  href="#"
+                                <Link
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
                                   )}
-                                >
-                                  Profil
-                                </a>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href="#"
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}
-                                >
-                                  Beállítások
-                                </a>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href=""
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}
-                                  onClick={() => {
-                                    Logout();
-                                  }}
+                                  onClick={Logout}
                                 >
                                   Kijelentkezés
-                                </a>
+                                </Link>
                               )}
                             </Menu.Item>
                           </Menu.Items>
