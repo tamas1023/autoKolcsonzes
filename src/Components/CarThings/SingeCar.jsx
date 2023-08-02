@@ -7,6 +7,15 @@ function SingleCar(props) {
   const navitage = useNavigate();
   const authC = useContext(AuthCont);
   const [isPending, setPending] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   const getItemById = (id) => {
     const storedCars = JSON.parse(localStorage.getItem("cars"));
@@ -129,7 +138,13 @@ function SingleCar(props) {
                 )}
               </div>
             ))}
-            <img src={oneCar.kép} alt={oneCar.név} className="w-96 m-auto" />
+            <button onClick={handleOpenModal}>
+              <img
+                src={oneCar.kép}
+                alt={oneCar.név}
+                className="w-96 m-auto cursor-pointer"
+              />
+            </button>
 
             <div>
               {authC.isLoggedIn ? (
@@ -207,6 +222,24 @@ function SingleCar(props) {
             </div>
           </div>
         </div>
+        {isModalOpen && (
+          <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-75">
+            <div className="relative max-w-screen-sm">
+              <button
+                onClick={handleCloseModal}
+                className="absolute top-2 right-2 p-2 text-white bg-gray-700 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-800"
+              >
+                Bezárás
+              </button>
+              <img
+                src={oneCar.kép}
+                alt={oneCar.név}
+                className="w-full"
+                onClick={handleCloseModal}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
