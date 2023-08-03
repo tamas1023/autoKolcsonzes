@@ -7,4 +7,4 @@ Ez a weboldal csak is React használatával épült, az adatok tárolására(aut
 **Majd tovább fogom fejleszteni** ezt a weboldalt, hogy az adatokat webszerveren tárolódjanak, de az egy új Repositorty lesz majd.
 
 **Login funkcióhoz** egyenlőre csak név kell,
-és ha admin felületet megakarjátok nézni, akkor a felhasználónévbe az **admin** nevet kell beírni.
+és ha admin felületet megakarok nézni, akkor a felhasználónévbe az **admin** nevet kell beírni.
