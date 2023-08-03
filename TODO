@@ -1,5 +1,7 @@
 Ehez a projekthez:
-leírás készítése githubra, hogy mi hogy admin, user mindent leírni
+Interaktív funkciók irása, pl: DragAndDrop, és amikor bejeletnkezik, bérel, akkor oldal kis jelzés felugrik
+saját felugró ablak, a sima alert helyett, választható téma (minimum sötét és világos)
+figyelni arra hogy full reszponzív legyen
 
 Tervek backend el:
 regisztráció
