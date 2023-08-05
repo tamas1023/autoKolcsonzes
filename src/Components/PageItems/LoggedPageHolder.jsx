@@ -7,7 +7,7 @@ const LoggedPageHolder = (props) => {
   const nav = useRef();
   //console.log(props.beloginoltProp);
   return (
-    <div className="h-screen">
+    <div className="h-screen flex flex-col">
       <Navbar nav={nav} />
       <main>
         <Header title={props.title} nav={nav} />

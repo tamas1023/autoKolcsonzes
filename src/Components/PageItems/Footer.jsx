@@ -2,8 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="flex justify-center items-center">
-      <div className="copyright">
+    <footer className="flex justify-center items-center ">
+      <div className="copyright mb-2">
         &copy; Copyright {new Date().getFullYear()}
         <strong>
           <span> BT </span>

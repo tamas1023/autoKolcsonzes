@@ -1,7 +1,9 @@
 Ehez a projekthez:
-Interaktív funkciók irása, pl: DragAndDrop, és amikor bejeletnkezik, bérel, akkor oldal kis jelzés felugrik
+Interaktív funkciók irása, pl: DragAndDrop, keresés és szűrés, értesítések és visszajelzések,
+és amikor bejelentkezik, bérel, akkor oldal kis jelzés felugrik
 saját felugró ablak, a sima alert helyett, választható téma (minimum sötét és világos)
 figyelni arra hogy full reszponzív legyen
+
 
 Tervek backend el:
 regisztráció

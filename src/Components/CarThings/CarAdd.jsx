@@ -57,47 +57,48 @@ function CarAdd(props) {
   };
 
   return (
-    <div className="bg-white rounded-md shadow-md p-6 w-96 m-auto">
-      <h1 className="text-2xl font-semibold mb-6 text-black">
-        Új autó hozzáadása
-      </h1>
-      <form className="grid gap-4">
-        {inputs.map((input) => (
-          <div className="" key={input.name}>
-            <label className="block text-sm font-medium">{input.név}</label>
-            {input.name === "leírás" ? (
-              <div>
-                <p className="text-black">{input.név}</p>
-                <textarea
-                  name={input.name}
-                  className="block w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-600 sm:text-sm resize-y leading-6 text-black"
-                  placeholder={input.placeholder}
-                  onChange={handleChange}
-                ></textarea>
-              </div>
-            ) : (
-              <div>
-                <p className="text-black">{input.név}</p>
-                <input
-                  type={input.type}
-                  name={input.name}
-                  className="block w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-600 sm:text-sm text-black"
-                  placeholder={input.placeholder}
-                  onChange={handleChange}
-                />
-              </div>
-            )}
-          </div>
-        ))}
-        {authC.isAdmin() && (
-          <button
-            className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 mt-4 w-full"
-            onClick={addNewCar}
-          >
-            Új autó hozzáadása
-          </button>
-        )}
-      </form>
+    <div>
+      <div className="bg-white rounded-md shadow-md p-6 w-96 mt-2 m-auto">
+        <h1 className="text-2xl font-semibold mb-6 text-black">
+          Új autó hozzáadása
+        </h1>
+        <form className="grid gap-4">
+          {inputs.map((input) => (
+            <div className="" key={input.name}>
+              {input.name === "leírás" ? (
+                <div>
+                  <p className="text-black">{input.név}</p>
+                  <textarea
+                    name={input.name}
+                    className="resize-y leading-6 text-black"
+                    placeholder={input.placeholder}
+                    onChange={handleChange}
+                  ></textarea>
+                </div>
+              ) : (
+                <div>
+                  <p className="text-black">{input.név}</p>
+                  <input
+                    type={input.type}
+                    name={input.name}
+                    className=" text-black"
+                    placeholder={input.placeholder}
+                    onChange={handleChange}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+          {authC.isAdmin() && (
+            <button
+              className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 mt-4 w-full"
+              onClick={addNewCar}
+            >
+              Új autó hozzáadása
+            </button>
+          )}
+        </form>
+      </div>
     </div>
   );
 }

@@ -6,9 +6,11 @@ function SingleCar(props) {
   const id = parseInt(param.autoId);
   const navitage = useNavigate();
   const authC = useContext(AuthCont);
-  const [isPending, setPending] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
 
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [content, setContent] = useState("");
+  const [wantToDeleteCar, setWantToDeleteCar] = useState(-1);
   const handleOpenModal = () => {
     setModalOpen(true);
   };
@@ -102,6 +104,39 @@ function SingleCar(props) {
     localStorage.setItem("cars", JSON.stringify(storedCars));
     navitage("/autoKolcsonzes/Főoldal");
   };
+  const ConfirmModal = ({ onCancel, onConfirm }) => {
+    let message;
+
+    if (content === "rent") {
+      message = "Biztosan ki akarod bérelni?";
+    } else if (content === "delete") {
+      message = "Biztosan törölni akarod az autót?";
+    } else if (content === "change") {
+      message = "Biztos végre akarod hajtani a módosításokat?";
+    }
+
+    return (
+      <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="bg-white p-4 rounded-md text-black">
+          <p>{message}</p>
+          <div className="flex justify-end mt-4">
+            <button
+              className="px-4 py-2 mr-2 bg-red-500 text-white rounded-md transition-colors duration-300 ease-in-out hover:bg-red-700"
+              onClick={onCancel}
+            >
+              Mégsem
+            </button>
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded-md transition-colors duration-300 ease-in-out hover:bg-blue-700"
+              onClick={onConfirm}
+            >
+              Igen
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -151,18 +186,8 @@ function SingleCar(props) {
                 <button
                   className="block w-full mb-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 text-white"
                   onClick={() => {
-                    if (window.confirm("Biztos ki akarod bérelni?")) {
-                      setPending(true);
-                      (async () => {
-                        try {
-                          rent();
-                        } catch (err) {
-                          console.log(err);
-                        } finally {
-                          setPending(false);
-                        }
-                      })();
-                    }
+                    setContent("rent");
+                    setShowConfirmModal(true);
                   }}
                 >
                   Autó bérlése
@@ -176,40 +201,17 @@ function SingleCar(props) {
                   <button
                     className="block w-full mb-2 bg-green-500 hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring focus:ring-green-300 rounded-md p-2 text-white"
                     onClick={() => {
-                      if (
-                        window.confirm(
-                          "Biztos végre akarod hajtani a módosításokat?"
-                        )
-                      ) {
-                        setPending(true);
-                        (async () => {
-                          try {
-                            changeCar();
-                          } catch (err) {
-                            console.log(err);
-                          } finally {
-                            setPending(false);
-                          }
-                        })();
-                      }
+                      setContent("change");
+                      setShowConfirmModal(true);
                     }}
                   >
                     Autó módosítása
                   </button>
                   <button
                     onClick={() => {
-                      if (window.confirm("Biztos ki akarod törölni?")) {
-                        setPending(true);
-                        (async () => {
-                          try {
-                            deleteCarById(id);
-                          } catch (err) {
-                            console.log(err);
-                          } finally {
-                            setPending(false);
-                          }
-                        })();
-                      }
+                      setContent("delete");
+                      setShowConfirmModal(true);
+                      setWantToDeleteCar(id);
                     }}
                     className="block w-full bg-red-500 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-300 rounded-md p-2 text-white"
                   >
@@ -241,6 +243,21 @@ function SingleCar(props) {
           </div>
         )}
       </div>
+      {showConfirmModal && (
+        <ConfirmModal
+          onCancel={() => setShowConfirmModal(false)}
+          onConfirm={() => {
+            setShowConfirmModal(false);
+            if (content === "rent") {
+              rent();
+            } else if (content === "delete") {
+              deleteCarById(wantToDeleteCar);
+            } else if (content === "change") {
+              changeCar();
+            }
+          }}
+        />
+      )}
     </>
   );
 }

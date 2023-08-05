@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthCont } from "../Services/AuthContext";
 function CarRent(props) {
@@ -21,6 +21,11 @@ function CarRent(props) {
           )
         )
   );
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  const [wantToStopRent, setWantToStopRent] = useState(-1);
+  const [payAmount, setPayAmount] = useState();
+  const payAmountRef = useRef(0);
 
   const toZero = () => {
     if (onePayment.money < 0) {
@@ -32,9 +37,10 @@ function CarRent(props) {
     }
   };
   const addMoney = () => {
-    const inputAmount = prompt("Add meg a mennyiséget: ");
-    if (inputAmount !== null && !isNaN(inputAmount)) {
-      const amount = parseInt(inputAmount);
+    //const inputAmount = prompt("Add meg a mennyiséget: ");
+
+    if (payAmountRef.current !== null && !isNaN(payAmountRef.current)) {
+      const amount = parseInt(payAmountRef.current);
       onePayment.money += amount;
       payments.map((payment) => {
         payment.username === authC.user
@@ -68,28 +74,101 @@ function CarRent(props) {
     localStorage.setItem("payments", JSON.stringify(payments));
     navitage("/autoKolcsonzes/Bérlés");
   };
+  const amountChange = (e) => {
+    payAmountRef.current = e.target.value;
+  };
+  const Modal = ({ onCancel, onConfirm }) => {
+    const modalText =
+      modalContent === "kiegyenlites"
+        ? "Biztosan ki akarod egyenlíteni a számlát?"
+        : modalContent === "feltoltes"
+        ? "Add meg a mennyiséget:"
+        : "Biztosan meg akarod szüntetni a bérlést?";
+
+    return (
+      <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="bg-white p-4 rounded-md text-black">
+          <p>{modalText}</p>
+          {modalContent === "kiegyenlites" || modalContent === "feltoltes" ? (
+            modalContent === "feltoltes" ? (
+              <div className="">
+                <input
+                  type="number"
+                  name="pay"
+                  id="moneyinput"
+                  defaultValue={payAmountRef}
+                  onChange={amountChange}
+                  className=""
+                />
+                <div className="flex justify-end mt-4">
+                  <button
+                    className="px-4 py-2 mr-2 bg-red-500 text-white rounded-md transition-colors duration-300 ease-in-out hover:bg-red-700"
+                    onClick={onCancel}
+                  >
+                    Mégsem
+                  </button>
+                  <button
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md transition-colors duration-300 ease-in-out hover:bg-blue-700"
+                    onClick={onConfirm}
+                  >
+                    {modalContent === "kiegyenlites" ? "Igen" : "Feltöltés"}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex justify-end mt-4">
+                <button
+                  className="px-4 py-2 mr-2 bg-red-500 text-white rounded-md transition-colors duration-300 ease-in-out hover:bg-red-700"
+                  onClick={onCancel}
+                >
+                  Mégsem
+                </button>
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md transition-colors duration-300 ease-in-out hover:bg-blue-700"
+                  onClick={onConfirm}
+                >
+                  {modalContent === "kiegyenlites" ? "Igen" : "Feltöltés"}
+                </button>
+              </div>
+            )
+          ) : (
+            <div className="flex justify-end mt-4">
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded-md transition-colors duration-300 ease-in-out hover:bg-red-700"
+                onClick={onCancel}
+              >
+                Mégsem
+              </button>
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded-md transition-colors duration-300 ease-in-out hover:bg-blue-700"
+                onClick={onConfirm}
+              >
+                Igen
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div>
       <h1 className="ml-2">{onePayment.money} pénzed van</h1>
       <button
         className=" mb-2 ml-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 "
-        onClick={addMoney}
+        onClick={() => {
+          setModalContent("feltoltes");
+          setShowModal(true);
+        }}
       >
         Egyenleg feltöltés
       </button>
       <button
         className=" mb-2 ml-2 bg-blue-500  hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 "
         onClick={() => {
-          if (window.confirm("Biztos ki akarod egyenlíteni a számlát?")) {
-            (async () => {
-              try {
-                toZero();
-              } catch (err) {
-                console.log(err);
-              } finally {
-              }
-            })();
-          }
+          setModalContent("kiegyenlites");
+          setShowModal(true);
         }}
       >
         Egyenleg kiegyenlítése
@@ -120,16 +199,9 @@ function CarRent(props) {
             <button
               className="block w-full mb-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 "
               onClick={() => {
-                if (window.confirm("Biztos meg akarod szűntetni a bérlést?")) {
-                  (async () => {
-                    try {
-                      stopRent(car.id);
-                    } catch (err) {
-                      console.log(err);
-                    } finally {
-                    }
-                  })();
-                }
+                setModalContent("rent");
+                setWantToStopRent(car.id);
+                setShowModal(true);
               }}
             >
               Autó bérlés megszűntetése
@@ -137,6 +209,21 @@ function CarRent(props) {
           </div>
         ))}
       </div>
+      {showModal && (
+        <Modal
+          onCancel={() => setShowModal(false)}
+          onConfirm={() => {
+            setShowModal(false);
+            if (modalContent === "kiegyenlites") {
+              toZero();
+            } else if (modalContent === "feltoltes") {
+              addMoney();
+            } else {
+              stopRent(wantToStopRent);
+            }
+          }}
+        />
+      )}
     </div>
   );
 }
