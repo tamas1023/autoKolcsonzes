@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import { AuthCont } from "../Services/AuthContext";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { NotificationCont } from "../Services/NotificationContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -12,6 +13,7 @@ function classNames(...classes) {
 const Navbar = (props) => {
   const navitage = useNavigate();
   const authC = useContext(AuthCont);
+  const { notificationHandler } = useContext(NotificationCont);
   const [navigation, setNavigation] = useState([
     { name: "Főoldal", href: "/autoKolcsonzes/Főoldal", current: false, id: 0 },
   ]);
@@ -72,6 +74,7 @@ const Navbar = (props) => {
     authC.logout();
 
     navitage("/autoKolcsonzes/Főoldal");
+    notificationHandler({ type: "success", message: "Sikeres kijelentkezés" });
   };
   return (
     <>

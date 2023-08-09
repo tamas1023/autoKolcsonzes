@@ -1,12 +1,14 @@
 import React, { useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthCont } from "../Services/AuthContext";
+import { NotificationCont } from "../Services/NotificationContext";
 
 const Login = (props) => {
   const navitage = useNavigate();
   const username = useRef();
   const pass = useRef();
   const authC = useContext(AuthCont);
+  const { notificationHandler } = useContext(NotificationCont);
   const CheckUser = () => {
     authC.login(username.current.value);
     const payments = JSON.parse(localStorage.getItem("payments"));
@@ -30,6 +32,7 @@ const Login = (props) => {
     }
 
     navitage("/autoKolcsonzes/Főoldal");
+    notificationHandler({ type: "success", message: "Sikeres bejelentkezés" });
   };
   return (
     <div>

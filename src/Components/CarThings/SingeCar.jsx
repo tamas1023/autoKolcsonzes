@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthCont } from "../Services/AuthContext";
+import { NotificationCont } from "../Services/NotificationContext";
+
 function SingleCar(props) {
   const param = useParams();
   const id = parseInt(param.autoId);
   const navitage = useNavigate();
   const authC = useContext(AuthCont);
+  const { notificationHandler } = useContext(NotificationCont);
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -32,6 +35,7 @@ function SingleCar(props) {
     const updatedCars = storedCars.filter((car) => car.id !== id);
     localStorage.setItem("cars", JSON.stringify(updatedCars));
     navitage("/autoKolcsonzes/Főoldal");
+    notificationHandler({ type: "success", message: "Sikeres autó törlés" });
   };
   const rent = () => {
     const currentDate = new Date();
@@ -53,6 +57,7 @@ function SingleCar(props) {
     localStorage.setItem("rents", JSON.stringify(updateStoredRents));
 
     navitage("/autoKolcsonzes/Főoldal");
+    notificationHandler({ type: "success", message: "Sikeres autó bérlés" });
   };
   const oneCar = getItemById(id);
   const [car, SetCar] = useState({
@@ -103,6 +108,7 @@ function SingleCar(props) {
     storedCars[car.id] = car;
     localStorage.setItem("cars", JSON.stringify(storedCars));
     navitage("/autoKolcsonzes/Főoldal");
+    notificationHandler({ type: "success", message: "Sikeres autó módosítás" });
   };
   const ConfirmModal = ({ onCancel, onConfirm }) => {
     let message;

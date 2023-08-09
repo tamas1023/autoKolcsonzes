@@ -1,8 +1,11 @@
 import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthCont } from "../Services/AuthContext";
+import { NotificationCont } from "../Services/NotificationContext";
+
 function CarRent(props) {
   const authC = useContext(AuthCont);
+  const { notificationHandler } = useContext(NotificationCont);
   const navitage = useNavigate();
   const cars = JSON.parse(localStorage.getItem("cars"));
   //localStorage.removeItem("rents");
@@ -34,6 +37,10 @@ function CarRent(props) {
       //miven a onepayment a filter által??? a payments re mutat ezért a payment értéke is válltozik... ?
       localStorage.setItem("payments", JSON.stringify(payments));
       navitage("/autoKolcsonzes/Bérlés");
+      notificationHandler({
+        type: "success",
+        message: "Sikeres kiegyenlítés",
+      });
     }
   };
   const addMoney = () => {
@@ -49,6 +56,10 @@ function CarRent(props) {
       });
       localStorage.setItem("payments", JSON.stringify(payments));
       navitage("/autoKolcsonzes/Bérlés");
+      notificationHandler({
+        type: "success",
+        message: "Sikeres pénz hozzáadás",
+      });
     }
   };
   const stopRent = (id) => {
@@ -73,6 +84,10 @@ function CarRent(props) {
     //miven a onepayment a filter által??? a payments re mutat ezért a payment értéke is válltozik... ?
     localStorage.setItem("payments", JSON.stringify(payments));
     navitage("/autoKolcsonzes/Bérlés");
+    notificationHandler({
+      type: "success",
+      message: "Sikeres bérlés megszűntetés",
+    });
   };
   const amountChange = (e) => {
     payAmountRef.current = e.target.value;
@@ -134,7 +149,7 @@ function CarRent(props) {
           ) : (
             <div className="flex justify-end mt-4">
               <button
-                className="px-4 py-2 bg-red-500 text-white rounded-md transition-colors duration-300 ease-in-out hover:bg-red-700"
+                className="px-4 py-2 mr-2 bg-red-500 text-white rounded-md transition-colors duration-300 ease-in-out hover:bg-red-700"
                 onClick={onCancel}
               >
                 Mégsem

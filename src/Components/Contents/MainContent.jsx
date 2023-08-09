@@ -13,69 +13,74 @@ import AuthProtection from "../Protection/AuthProtection";
 import AuthContext from "../Services/AuthContext";
 import OutProtection from "../Protection/OutProtection";
 import AdminProtection from "../Protection/AdminProtection";
+import NotificationContext from "../Services/NotificationContext";
+import Notification from "../Utilities/Notification";
 
 const MainContent = () => {
   return (
     <AuthContext>
-      <Routes>
-        {/*Ezekre menne az out protection*/}
+      <NotificationContext>
+        <Notification />
+        <Routes>
+          {/*Ezekre menne az out protection*/}
 
-        <Route path="/auth/*" />
+          <Route path="/auth/*" />
 
-        {/*Ezekre menne a login protection*/}
-        <Route
-          path="/autoKolcsonzes/Főoldal/*"
-          element={
-            <>
-              <LoggedPageHolder title={"Főoldal"}>
-                <Home />
-              </LoggedPageHolder>
-            </>
-          }
-        />
-        <Route
-          path="/autoKolcsonzes/Bérlés/*"
-          element={
-            <AuthProtection>
-              <LoggedPageHolder title={"Bérlés"}>
-                <CarRent />
-              </LoggedPageHolder>
-            </AuthProtection>
-          }
-        />
+          {/*Ezekre menne a login protection*/}
+          <Route
+            path="/autoKolcsonzes/Főoldal/*"
+            element={
+              <>
+                <LoggedPageHolder title={"Főoldal"}>
+                  <Home />
+                </LoggedPageHolder>
+              </>
+            }
+          />
+          <Route
+            path="/autoKolcsonzes/Bérlés/*"
+            element={
+              <AuthProtection>
+                <LoggedPageHolder title={"Bérlés"}>
+                  <CarRent />
+                </LoggedPageHolder>
+              </AuthProtection>
+            }
+          />
 
-        <Route
-          path="/autoKolcsonzes/Auto/:autoId"
-          element={
-            <>
-              <LoggedPageHolder title={"Egy Autó"}>
-                <SingleCar />
-              </LoggedPageHolder>
-            </>
-          }
-        />
-        <Route
-          path="/autoKolcsonzes/Hozzáadás"
-          element={
-            <AdminProtection>
-              <LoggedPageHolder title={"Autó Hozzáadás"}>
-                <CarAdd />
-              </LoggedPageHolder>
-            </AdminProtection>
-          }
-        />
-        <Route
-          path="/autoKolcsonzes/Bejelentkezés"
-          element={
-            <OutProtection>
-              <LoggedPageHolder title={"Bejelentkezés"}>
-                <Login />
-              </LoggedPageHolder>
-            </OutProtection>
-          }
-        />
-        <Route path="/autoKolcsonzes/*" element={<Nope />} />
-      </Routes>
+          <Route
+            path="/autoKolcsonzes/Auto/:autoId"
+            element={
+              <>
+                <LoggedPageHolder title={"Egy Autó"}>
+                  <SingleCar />
+                </LoggedPageHolder>
+              </>
+            }
+          />
+          <Route
+            path="/autoKolcsonzes/Hozzáadás"
+            element={
+              <AdminProtection>
+                <LoggedPageHolder title={"Autó Hozzáadás"}>
+                  <CarAdd />
+                </LoggedPageHolder>
+              </AdminProtection>
+            }
+          />
+          <Route
+            path="/autoKolcsonzes/Bejelentkezés"
+            element={
+              <OutProtection>
+                <LoggedPageHolder title={"Bejelentkezés"}>
+                  <Login />
+                </LoggedPageHolder>
+              </OutProtection>
+            }
+          />
+          <Route path="/autoKolcsonzes/*" element={<Nope />} />
+        </Routes>
+      </NotificationContext>
     </AuthContext>
   );
 };
