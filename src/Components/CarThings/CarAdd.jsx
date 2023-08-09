@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthCont } from "../Services/AuthContext";
+import { NotificationCont } from "../Services/NotificationContext";
 
 function CarAdd(props) {
   const navitage = useNavigate();
   const authC = useContext(AuthCont);
+  const { notificationHandler } = useContext(NotificationCont);
 
   const [cars, setCars] = useState(
     JSON.parse(localStorage.getItem("cars")) || []
@@ -50,6 +52,7 @@ function CarAdd(props) {
     const updatedCars = [...cars, { ...car, id: generateUniqueId() }];
     localStorage.setItem("cars", JSON.stringify(updatedCars));
     navitage("/autoKolcsonzes/Főoldal");
+    notificationHandler({ type: "success", message: "Sikeres autó hozzáadás" });
   };
 
   const handleChange = (e) => {
