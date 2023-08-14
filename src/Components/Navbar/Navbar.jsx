@@ -136,9 +136,9 @@ const Navbar = (props) => {
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <label style={{ display: "inherit" }}>
                     {authC.theme === "light" ? (
-                      <img src="../img/moon.svg" className="w-10" alt="" />
+                      <img src="./img/moon.svg" className="w-10" alt="" />
                     ) : (
-                      <img src="../img/sun.svg" className="w-10" alt="" />
+                      <img src="./img/sun.svg" className="w-10" alt="" />
                     )}
                     <input
                       type="checkbox"
@@ -156,7 +156,7 @@ const Navbar = (props) => {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src="../img/default-profile-picture.png"
+                              src="./img/default-profile-picture.png"
                               alt=""
                             />
                           </Menu.Button>
@@ -191,13 +191,9 @@ const Navbar = (props) => {
                       <div style={{ display: "inherit" }}>
                         <label style={{ display: "inherit" }}>
                           {authC.theme === "light" ? (
-                            <img
-                              src="../img/moon.svg"
-                              className="w-10"
-                              alt=""
-                            />
+                            <img src="./img/moon.svg" className="w-10" alt="" />
                           ) : (
-                            <img src="../img/sun.svg" className="w-10" alt="" />
+                            <img src="./img/sun.svg" className="w-10" alt="" />
                           )}
                           <input
                             type="checkbox"
