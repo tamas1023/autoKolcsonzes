@@ -9,7 +9,7 @@ const LoggedPageHolder = (props) => {
   return (
     <div className="flex flex-col">
       <Navbar nav={nav} />
-      <main className="bg-white text-black dark:bg-zinc-800 dark:text-white">
+      <main className="bg-white text-black dark:bg-zinc-800 dark:text-white ">
         <Header title={props.title} nav={nav} />
 
         {props.children}
