@@ -19,8 +19,10 @@
 ---------------------------------------------------------------------------------------*/
 
 body {
+  /*
   background-color: var(--bodyBack);
   color: var(--fontColor);
+  */
 }
 main {
   display: flex;

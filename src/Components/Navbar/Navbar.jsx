@@ -17,11 +17,26 @@ const Navbar = (props) => {
   const [navigation, setNavigation] = useState([
     { name: "Főoldal", href: "/autoKolcsonzes/Főoldal", current: false, id: 0 },
   ]);
+
+  const [isToggled, setIsToggled] = useState(false);
+
+  useEffect(() => {
+    if (authC.theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [authC.theme]);
+
   useEffect(() => {
     // Az admin jogok lekérdezése és beállítása (például AuthContext-ből)
     menuCheck();
   }, [authC]);
 
+  const handleToggle = () => {
+    setIsToggled(!isToggled);
+    authC.setTheme(authC.theme === "dark" ? "light" : "dark");
+  };
   function menuCheck() {
     // Dinamikus navigation létrehozása az admin jogok alapján
     const dynamicNavigation = [
@@ -81,11 +96,11 @@ const Navbar = (props) => {
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
-            <div className="mx-auto px-2 ">
+            <div className="mx-auto px-2  text-white ">
               <div className="relative flex h-16 items-center justify-between">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                   {/* Mobile menu button*/}
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2  text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -103,8 +118,8 @@ const Navbar = (props) => {
                           key={item.name}
                           className={classNames(
                             item.current
-                              ? "bg-gray-900 text-white"
-                              : "text-white hover:bg-gray-700 hover:text-white",
+                              ? "bg-gray-900 "
+                              : " hover:bg-gray-700 hover:text-white",
                             "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
@@ -119,6 +134,19 @@ const Navbar = (props) => {
                   </div>
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  <label style={{ display: "inherit" }}>
+                    {authC.theme === "light" ? (
+                      <img src="../img/moon.svg" className="w-10" alt="" />
+                    ) : (
+                      <img src="../img/sun.svg" className="w-10" alt="" />
+                    )}
+                    <input
+                      type="checkbox"
+                      onChange={handleToggle}
+                      checked={authC.theme === "light" ? false : true}
+                      style={{ display: "none" }}
+                    />
+                  </label>
                   {
                     /* Profile dropdown */
                     authC.isLoggedIn ? (
@@ -128,7 +156,7 @@ const Navbar = (props) => {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src="./img/default-profile-picture.png"
+                              src="../img/default-profile-picture.png"
                               alt=""
                             />
                           </Menu.Button>
@@ -160,9 +188,27 @@ const Navbar = (props) => {
                         </Transition>
                       </Menu>
                     ) : (
-                      <Link
-                        to={"/autoKolcsonzes/Bejelentkezés"}
-                        /*
+                      <div style={{ display: "inherit" }}>
+                        <label style={{ display: "inherit" }}>
+                          {authC.theme === "light" ? (
+                            <img
+                              src="../img/moon.svg"
+                              className="w-10"
+                              alt=""
+                            />
+                          ) : (
+                            <img src="../img/sun.svg" className="w-10" alt="" />
+                          )}
+                          <input
+                            type="checkbox"
+                            onChange={handleToggle}
+                            checked={authC.theme === "light" ? false : true}
+                            style={{ display: "none" }}
+                          />
+                        </label>
+                        <Link
+                          to={"/autoKolcsonzes/Bejelentkezés"}
+                          /*
                         className={classNames(
                           navigation[3].current
                             ? "bg-gray-900 text-white"
@@ -171,16 +217,17 @@ const Navbar = (props) => {
                         )}
                         */
 
-                        className={classNames(
-                          "text-white hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
-                        onClick={() => {
-                          currentChanges(3);
-                        }}
-                      >
-                        Bejelentkezés
-                      </Link>
+                          className={classNames(
+                            "text-white hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-sm font-medium"
+                          )}
+                          onClick={() => {
+                            currentChanges(3);
+                          }}
+                        >
+                          Bejelentkezés
+                        </Link>
+                      </div>
                     )
                   }
                 </div>

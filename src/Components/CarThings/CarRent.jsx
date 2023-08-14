@@ -171,7 +171,7 @@ function CarRent(props) {
     <div>
       <h1 className="ml-2">{onePayment.money} pénzed van</h1>
       <button
-        className=" mb-2 ml-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 "
+        className=" mb-2 ml-2 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 text-white"
         onClick={() => {
           setModalContent("feltoltes");
           setShowModal(true);
@@ -180,7 +180,7 @@ function CarRent(props) {
         Egyenleg feltöltés
       </button>
       <button
-        className=" mb-2 ml-2 bg-blue-500  hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 "
+        className=" mb-2 ml-2 bg-blue-500  hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 text-white"
         onClick={() => {
           setModalContent("kiegyenlites");
           setShowModal(true);
