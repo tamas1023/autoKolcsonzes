@@ -9,7 +9,7 @@ const Home = () => {
   const authC = useContext(AuthCont);
 
   return (
-    <div className="_container content">
+    <div className="_container content ">
       <CarDatas></CarDatas>
     </div>
   );

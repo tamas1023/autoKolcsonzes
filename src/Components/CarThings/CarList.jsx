@@ -67,8 +67,12 @@ function CarList(props) {
             </div>
             <div className="flex-grow">
               <h2 className="text-xl font-semibold mb-2">{car.név}</h2>
-              <p className="text-slate-200">{car.leírás}</p>
-              <p className="text-slate-300 mt-2">Ár: {car.ára}/óra</p>
+              <p className="text-slate-800 dark:text-slate-200 ">
+                {car.leírás}
+              </p>
+              <p className="text-slate-700 dark:text-slate-300  mt-2">
+                Ár: {car.ára}/óra
+              </p>
             </div>
           </Link>
         ))}

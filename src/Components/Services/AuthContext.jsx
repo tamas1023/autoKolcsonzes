@@ -8,6 +8,15 @@ const AuthContext = (props) => {
   /*{props.children;}*/
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [theme, setTheme] = useState(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark").matches) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  }, []);
   const registration = () => {
     //itt nincs regisztráció de ha lenne ide jönne
   };
@@ -43,7 +52,16 @@ const AuthContext = (props) => {
   }, []);
   return (
     <AuthCont.Provider
-      value={{ isLoggedIn, login, logout, user, setUser, isAdmin }}
+      value={{
+        isLoggedIn,
+        login,
+        logout,
+        user,
+        setUser,
+        isAdmin,
+        theme,
+        setTheme,
+      }}
     >
       {props.children}
     </AuthCont.Provider>
