@@ -1,4 +1,6 @@
-# AutóKölcsönzés React-al
+# AutóKölcsönzés React-al, és Tailwind el.
+
+A testvérem azért van contributorok alatt, mert egyszer véletlen az ő fiókjával commiteltem, de az egész projekt tejlesen csak is én dolgoztam rajta!
 
 Ez egy autókölcsönző alkalmazás, amit a saját gyakorlásomra és feljődésemre hoztam létre.
 
