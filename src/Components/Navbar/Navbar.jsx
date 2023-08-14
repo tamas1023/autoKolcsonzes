@@ -189,19 +189,6 @@ const Navbar = (props) => {
                       </Menu>
                     ) : (
                       <div style={{ display: "inherit" }}>
-                        <label style={{ display: "inherit" }}>
-                          {authC.theme === "light" ? (
-                            <img src="./img/moon.svg" className="w-10" alt="" />
-                          ) : (
-                            <img src="./img/sun.svg" className="w-10" alt="" />
-                          )}
-                          <input
-                            type="checkbox"
-                            onChange={handleToggle}
-                            checked={authC.theme === "light" ? false : true}
-                            style={{ display: "none" }}
-                          />
-                        </label>
                         <Link
                           to={"/autoKolcsonzes/Bejelentkezés"}
                           /*
