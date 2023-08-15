@@ -67,7 +67,7 @@ const Login = (props) => {
             </div>
 
             <button
-              className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 "
+              className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 text-white"
               onClick={() => {
                 CheckUser();
               }}
