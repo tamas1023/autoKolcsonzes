@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthCont } from "../Services/AuthContext";
 import { NotificationCont } from "../Services/NotificationContext";
@@ -59,15 +59,41 @@ function SingleCar(props) {
     navitage("/autoKolcsonzes/Főoldal");
     notificationHandler({ type: "success", message: "Sikeres autó bérlés" });
   };
+  /*
   const oneCar = getItemById(id);
+  if (oneCar.kiBereltE) {
+    navitage("/autoKolcsonzes/Főoldal");
+    return;
+  }
   const [car, SetCar] = useState({
     id: parseInt(oneCar.id),
     név: oneCar.név,
     ára: parseInt(oneCar.ára),
     leírás: oneCar.leírás,
     kép: oneCar.kép,
-    kiBereltE: false,
+    kiBereltE: oneCar.kiBereltE,
   });
+  */
+
+  //IDE KELL MAJD USEEFFECT FÖLLÜLRE
+
+  const oneCar = getItemById(id);
+  const [car, SetCar] = useState(null);
+  useEffect(() => {
+    if (oneCar.kiBereltE) {
+      navitage("/autoKolcsonzes/Főoldal");
+      return;
+    } else {
+      SetCar({
+        id: parseInt(oneCar.id),
+        név: oneCar.név,
+        ára: parseInt(oneCar.ára),
+        leírás: oneCar.leírás,
+        kép: oneCar.kép,
+        kiBereltE: oneCar.kiBereltE,
+      });
+    }
+  }, []);
 
   const inputs = [
     {

@@ -94,7 +94,7 @@ function CarAdd(props) {
           ))}
           {authC.isAdmin() && (
             <button
-              className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 mt-4 w-full"
+              className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 rounded-md p-2 mt-4 w-full text-white"
               onClick={addNewCar}
             >
               Új autó hozzáadása

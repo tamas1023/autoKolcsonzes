@@ -4,7 +4,7 @@ import { AuthCont } from "../Services/AuthContext";
 import { NotificationCont } from "../Services/NotificationContext";
 
 const Login = (props) => {
-  const navitage = useNavigate();
+  const navigate = useNavigate();
   const username = useRef();
   const pass = useRef();
   const authC = useContext(AuthCont);
@@ -31,7 +31,7 @@ const Login = (props) => {
       }
     }
 
-    navitage("/autoKolcsonzes/Főoldal");
+    navigate("/autoKolcsonzes/Főoldal");
     notificationHandler({ type: "success", message: "Sikeres bejelentkezés" });
   };
   return (

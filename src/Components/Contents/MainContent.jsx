@@ -15,6 +15,7 @@ import OutProtection from "../Protection/OutProtection";
 import AdminProtection from "../Protection/AdminProtection";
 import NotificationContext from "../Services/NotificationContext";
 import Notification from "../Utilities/Notification";
+import ToHome from "../404/ToHome";
 
 const MainContent = () => {
   return (
@@ -30,11 +31,9 @@ const MainContent = () => {
           <Route
             path="/autoKolcsonzes/Főoldal/*"
             element={
-              <>
-                <LoggedPageHolder title={"Főoldal"}>
-                  <Home />
-                </LoggedPageHolder>
-              </>
+              <LoggedPageHolder title={"Főoldal"}>
+                <Home />
+              </LoggedPageHolder>
             }
           />
           <Route
@@ -78,6 +77,7 @@ const MainContent = () => {
               </OutProtection>
             }
           />
+          <Route path="/autoKolcsonzes/" element={<ToHome />} />
           <Route path="/autoKolcsonzes/*" element={<Nope />} />
         </Routes>
       </NotificationContext>
