@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { AuthCont } from "../Services/AuthContext";
 import { NotificationCont } from "../Services/NotificationContext";
 
@@ -82,7 +82,6 @@ function SingleCar(props) {
   useEffect(() => {
     if (oneCar.kiBereltE) {
       navitage("/autoKolcsonzes/Főoldal");
-      return;
     } else {
       SetCar({
         id: parseInt(oneCar.id),
