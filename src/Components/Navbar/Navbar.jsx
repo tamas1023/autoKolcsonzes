@@ -17,14 +17,16 @@ const Navbar = (props) => {
   const [navigation, setNavigation] = useState([
     { name: "Főoldal", href: "/autoKolcsonzes/Főoldal", current: false, id: 0 },
   ]);
-
   const [isToggled, setIsToggled] = useState(false);
+  const favicon = document.getElementById("favicon");
 
   useEffect(() => {
     if (authC.theme === "dark") {
       document.documentElement.classList.add("dark");
+      favicon.setAttribute("href", "./img/car-black.svg");
     } else {
       document.documentElement.classList.remove("dark");
+      favicon.setAttribute("href", "./img/car-white.svg");
     }
   }, [authC.theme]);
 
@@ -35,6 +37,7 @@ const Navbar = (props) => {
 
   const handleToggle = () => {
     setIsToggled(!isToggled);
+
     authC.setTheme(authC.theme === "dark" ? "light" : "dark");
   };
   function menuCheck() {
@@ -136,9 +139,9 @@ const Navbar = (props) => {
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <label style={{ display: "inherit" }}>
                     {authC.theme === "light" ? (
-                      <img src="/img/moon.svg" className="w-10" alt="" />
+                      <img src="./img/moon.svg" className="w-10" alt="" />
                     ) : (
-                      <img src="/img/sun.svg" className="w-10" alt="" />
+                      <img src="./img/sun.svg" className="w-10" alt="" />
                     )}
                     <input
                       type="checkbox"
