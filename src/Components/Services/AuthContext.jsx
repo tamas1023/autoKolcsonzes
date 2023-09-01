@@ -9,6 +9,7 @@ const AuthContext = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [theme, setTheme] = useState(null);
+  const [navId, setNavId] = useState(0);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark").matches) {
@@ -61,6 +62,8 @@ const AuthContext = (props) => {
         isAdmin,
         theme,
         setTheme,
+        navId,
+        setNavId,
       }}
     >
       {props.children}

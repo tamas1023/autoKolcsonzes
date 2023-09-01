@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { AuthCont } from "../Services/AuthContext";
+import { useContext } from "react";
 
 function CarList(props) {
+  const authC = useContext(AuthCont);
   const [cars, setCars] = useState(
     JSON.parse(localStorage.getItem("cars")) || []
   );
@@ -16,6 +19,9 @@ function CarList(props) {
   );
   const handleSearch = (e) => {
     setSearchText(e.target.value);
+  };
+  const menuHandle = () => {
+    authC.setNavId(-1);
   };
   return (
     <div>
@@ -57,6 +63,7 @@ function CarList(props) {
             key={car.id}
             className="border-solid border-2 border-sky-700 flex flex-col rounded-lg overflow-hidden shadow-md transition-transform transform hover:scale-105 p-4"
             style={{ margin: "8px" }}
+            onClick={menuHandle}
           >
             <div className="flex-shrink-0">
               <img

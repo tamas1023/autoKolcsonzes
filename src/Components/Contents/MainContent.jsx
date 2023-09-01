@@ -16,6 +16,7 @@ import AdminProtection from "../Protection/AdminProtection";
 import NotificationContext from "../Services/NotificationContext";
 import Notification from "../Utilities/Notification";
 import ToHome from "../404/ToHome";
+import CarHistory from "../CarThings/CarHistory";
 
 const MainContent = () => {
   return (
@@ -65,6 +66,16 @@ const MainContent = () => {
                   <CarAdd />
                 </LoggedPageHolder>
               </AdminProtection>
+            }
+          />
+          <Route
+            path="/autoKolcsonzes/History/"
+            element={
+              <OutProtection>
+                <LoggedPageHolder title={"History"}>
+                  <CarHistory />
+                </LoggedPageHolder>
+              </OutProtection>
             }
           />
           <Route

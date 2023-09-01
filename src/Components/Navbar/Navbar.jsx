@@ -6,6 +6,7 @@ import { AuthCont } from "../Services/AuthContext";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NotificationCont } from "../Services/NotificationContext";
+import { useRef } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,9 +15,8 @@ const Navbar = (props) => {
   const navitage = useNavigate();
   const authC = useContext(AuthCont);
   const { notificationHandler } = useContext(NotificationCont);
-  const [navigation, setNavigation] = useState([
-    { name: "Főoldal", href: "/autoKolcsonzes/Főoldal", current: false, id: 0 },
-  ]);
+  const [navigation, setNavigation] = useState([]);
+
   const [isToggled, setIsToggled] = useState(false);
   const favicon = document.getElementById("favicon");
 
@@ -46,7 +46,7 @@ const Navbar = (props) => {
       {
         name: "Főoldal",
         href: "/autoKolcsonzes/Főoldal",
-        current: false,
+        current: authC.navId === 0 ? true : false,
         id: 0,
       },
     ];
@@ -54,18 +54,28 @@ const Navbar = (props) => {
       dynamicNavigation.push({
         name: "Bérlés",
         href: "/autoKolcsonzes/Bérlés",
-        current: false,
+        current: authC.navId === 1 ? true : false,
         id: 1,
       });
     }
     if (authC.isAdmin()) {
-      dynamicNavigation.push({
-        name: "Autó Hozzáadás",
-        href: "/autoKolcsonzes/Hozzáadás",
-        current: false,
-        id: 2,
-      });
+      dynamicNavigation.push(
+        {
+          name: "Autó Hozzáadás",
+          href: "/autoKolcsonzes/Hozzáadás",
+          current: authC.navId === 2 ? true : false,
+          id: 2,
+        },
+        {
+          name: "Előzmények",
+          href: "/autoKolcsonzes/History",
+          current: authC.navId === 3 ? true : false,
+          id: 3,
+        }
+      );
     }
+
+    //Mivel kézileg adom hozzá, ezért a current az false ezt kell átírni
 
     setNavigation(dynamicNavigation);
   }
@@ -79,14 +89,19 @@ const Navbar = (props) => {
   */
 
   const currentChanges = (id) => {
+    /*
     const updatedNavigation = navigation.map((item) => {
       if (item.id === id) {
         return { ...item, current: true };
       } else {
-        return { ...item, current: false };
+        return { ...item };
       }
+
     });
+
     setNavigation(updatedNavigation);
+    */
+    authC.setNavId(id);
   };
   const Logout = () => {
     authC.logout();
@@ -208,7 +223,7 @@ const Navbar = (props) => {
                             "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           onClick={() => {
-                            currentChanges(3);
+                            currentChanges(-1);
                           }}
                         >
                           Bejelentkezés

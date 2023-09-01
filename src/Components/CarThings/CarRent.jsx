@@ -24,6 +24,9 @@ function CarRent(props) {
           )
         )
   );
+  const [history, setHistory] = useState(
+    JSON.parse(localStorage.getItem("history")) || []
+  );
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [wantToStopRent, setWantToStopRent] = useState(-1);
@@ -62,6 +65,11 @@ function CarRent(props) {
       });
     }
   };
+  //console.log(rents);
+  //console.log(cars);
+  //console.log("History");
+  console.log(history);
+  //localStorage.removeItem("history");
   const stopRent = (id) => {
     const oneRent = rents.filter((rent) => rent.id === id)[0];
     const startDate = new Date(oneRent.date);
@@ -71,6 +79,30 @@ function CarRent(props) {
     const oneCar = cars.filter((car) => car.id === id)[0];
     onePayment.money -= hoursPassed * oneCar.ára;
 
+    //csak hozzáadni a meglévő 1 autót a history ba
+    const generateUniqueId = () => {
+      const maxId = Math.max(...history.map((hist) => hist.id));
+
+      if (isNaN(maxId) || maxId === -Infinity) {
+        return 0;
+      }
+      return maxId + 1;
+    };
+    const updatedHistory = [
+      ...history,
+      {
+        id: generateUniqueId(),
+        felhasználóNév: oneRent.username,
+        autóNév: oneCar.név,
+        ára: oneCar.ára,
+        leírás: oneCar.leírás,
+        kép: oneCar.kép,
+        kezdetiDátum: startDate,
+        végeDátum: currentDate,
+      },
+    ];
+    localStorage.setItem("history", JSON.stringify(updatedHistory));
+    setHistory(updatedHistory);
     const updatedRents = rents.filter((rent) => rent.id !== id);
     cars[id].kiBereltE = false;
     const updateRentCars = cars.filter((car) =>
