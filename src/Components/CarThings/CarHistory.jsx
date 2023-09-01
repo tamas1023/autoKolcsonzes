@@ -5,7 +5,8 @@ const CarHistory = () => {
   const [history, setHistory] = useState(
     JSON.parse(localStorage.getItem("history")) || []
   );
-  console.log(history);
+  //console.log(history);
+  const reversedDates = [...history].reverse();
   //const updatedHistory = [...history, { ...hist, id: generateUniqueId() }];
   //localStorage.setItem("history", JSON.stringify(updatedHistory));
   /*
@@ -24,7 +25,7 @@ const CarHistory = () => {
       className="grid "
       style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}
     >
-      {history.map((car) => (
+      {reversedDates.map((car) => (
         <div
           key={car.id}
           className={`border-solid border-2 border-sky-700 flex flex-col rounded-lg overflow-hidden shadow-md ${
@@ -46,9 +47,7 @@ const CarHistory = () => {
             <p className="text-slate-200">{car.leírás}</p>
             <p className="text-slate-300 mt-2">Ár: {car.ára}/óra</p>
             <p className="text-slate-200">Kezdeti dátum: {car.kezdetiDátum}</p>
-            <p className="text-slate-300 mt-2">
-              Vége dátum: {car.végeDátum}/óra
-            </p>
+            <p className="text-slate-300 mt-2">Vége dátum: {car.végeDátum}</p>
           </div>
         </div>
       ))}

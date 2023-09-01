@@ -68,7 +68,7 @@ function CarRent(props) {
   //console.log(rents);
   //console.log(cars);
   //console.log("History");
-  console.log(history);
+  //console.log(history);
   //localStorage.removeItem("history");
   const stopRent = (id) => {
     const oneRent = rents.filter((rent) => rent.id === id)[0];
@@ -88,6 +88,23 @@ function CarRent(props) {
       }
       return maxId + 1;
     };
+    const kezdetiDátum = new Date(startDate);
+    const formattedDate1 = kezdetiDátum.toLocaleString("hu-HU", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const végeDátum = new Date(currentDate);
+    const formattedDate2 = kezdetiDátum.toLocaleString("hu-HU", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
     const updatedHistory = [
       ...history,
       {
@@ -97,8 +114,8 @@ function CarRent(props) {
         ára: oneCar.ára,
         leírás: oneCar.leírás,
         kép: oneCar.kép,
-        kezdetiDátum: startDate,
-        végeDátum: currentDate,
+        kezdetiDátum: formattedDate1,
+        végeDátum: formattedDate2,
       },
     ];
     localStorage.setItem("history", JSON.stringify(updatedHistory));
